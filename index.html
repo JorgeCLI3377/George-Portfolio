@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Jorge Meneses</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Jorge Meneses - Web design and develop</a>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link">Inicio</a></li>
+                    <li><a href="#about" class="nav-link">Acerca de</a></li>
+                    <li><a href="#portfolio" class="nav-link">Proyectos</a></li>
+                    <li><a href="#contact" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hola, soy <span>Jorge Meneses</span></h1>
+                <p>Soy un Desarrollador Web y mobile, especializado en backend. Creando soluciones innovadoras y estéticas.</p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn primary-btn">Ver Proyectos</a>
+                    <a href="#contact" class="btn secondary-btn">Contáctame</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/img/jorge.png" alt="mi imagen">
+                <div class="graphic-shape-1"></div>
+                <div class="graphic-shape-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>Acerca de Mí</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/img/twophoto.jpeg" alt="Otra imagen tuya">
+                </div>
+                <div class="about-text">
+                    <p>
+
+Soy Jorge Andrés Meneses Peñaranda Poseo 3 años de experiencia laboral en el ambito de el desarrollo , soy un desarrollador versátil con un sólido dominio de Python, utilizando frameworks como Flask y FastAPI y con experiencia en seguridad mediante JWT. Tengo una base robusta en desarrollo web con HTML, CSS y JavaScript.
+
+Manejo una variedad de bases de datos, tanto relacionales (PostgreSQL, MySQL, SQLite) como no relacionales (MongoDB, Firebase). Mis conocimientos se extienden a la orquestación y despliegue básico con Docker y la plataforma AWS.
+
+Adicionalmente, poseo experiencia en Java para el desarrollo de aplicaciones móviles con Android Studio y XML, complementado con conocimientos básicos de Spring Boot e Hibernate para el desarrollo backend.
+Como extra tambien poseo conocimientos en el sistema operativo Linux ya que por mucho tiempo fue mi SO preferido</p>
+                    <p>Me encanta trabajar en proyectos que enfocados al desarrollo web y movil</p>
+                    <a href="your-cv.pdf" download class="btn primary-btn">Descargar CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <h2>Mis Proyectos</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="assets/projects/teamproject.jpg" alt="Proyecto 1">
+                    <h3>Team Dev Project</h3>
+                    <p>Es un proyecto en el cual varios entusiastas de la programacion ofrecemos nuestros servicios, esto esta orientado al freelance y este sitio fue diseñado y programado por mi</p>
+                    
+                </div>
+                <div class="portfolio-item">
+                    <img src="assets/projects/javalearning.png" alt="Proyecto 2">
+                    <h3>Learn java Project</h3>
+                    <p>Es un proyecto enfocado al aprendizaje de el lenguaje java, este cuenta con varios modulos desde lo más basico hasta tecnicas mas avanzadas</p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contacto</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn submit-btn">Enviar Mensaje</button>
+            </form>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> jorgeandresmeenesespenaranda@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +57 3045517255</p>
+                <div class="social-links-footer">
+                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Jorge Meneses. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

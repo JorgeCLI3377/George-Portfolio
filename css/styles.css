@@ -1,0 +1,541 @@
+/* Variables CSS para colores y fuentes */
+:root {
+    --primary-color: #6C63FF; /* Ejemplo de color primario (azul/morado) */
+    --secondary-color: #F0F0F0; /* Fondo claro */
+    --text-color: #333;
+    --heading-color: #1a1a1a;
+    --white: #fff;
+    --font-family-headings: 'Montserrat', sans-serif; /* Puedes elegir tus propias fuentes */
+    --font-family-body: 'Open Sans', sans-serif;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family-body);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-headings);
+    color: var(--heading-color);
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 3.5em;
+    line-height: 1.2;
+}
+
+h1 span {
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+/* Botones */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: 2px solid var(--primary-color);
+}
+
+.primary-btn:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    margin-left: 15px;
+}
+
+.secondary-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* Header */
+.header {
+    background-color: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--heading-color);
+}
+
+.navbar .nav-list {
+    list-style: none;
+    display: flex;
+}
+
+.navbar .nav-list li {
+    margin-left: 30px;
+}
+
+.navbar .nav-link {
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: var(--primary-color);
+}
+
+/* Menú hamburguesa para móvil (oculto por defecto en desktop) */
+.menu-toggle {
+    display: none; /* Oculto en desktop */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 4px 0;
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    min-height: 90vh;
+    padding: 80px 0;
+    background-color: var(--secondary-color); /* Un color de fondo suave */
+    position: relative; /* Para los elementos gráficos */
+    overflow: hidden; /* Para que las formas no se salgan */
+}
+
+.hero-section .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para que se apilen en pantallas pequeñas */
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 300px;
+    margin-right: 40px;
+}
+
+.hero-image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px; /* Bordes ligeramente redondeados */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 2; /* Para que esté por encima de las formas */
+}
+
+/* Formas gráficas en Hero Section (ejemplo) */
+.graphic-shape-1 {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: var(--primary-color);
+    opacity: 0.1;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    top: 10%;
+    left: 5%;
+    z-index: 1;
+}
+
+.graphic-shape-2 {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-color: var(--primary-color);
+    opacity: 0.08;
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    bottom: 15%;
+    right: 10%;
+    z-index: 1;
+}
+
+.hero-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.8em;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* About Section */
+.about-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.about-image {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.about-image img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.about-text {
+    flex: 2;
+    min-width: 300px;
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    padding: 80px 0;
+    background-color: var(--secondary-color);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.portfolio-item {
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    padding-bottom: 20px; /* Espacio para el botón */
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 200px; /* Altura fija para las miniaturas */
+    object-fit: cover; /* Para que la imagen cubra el espacio sin distorsionarse */
+    display: block;
+}
+
+.portfolio-item h3 {
+    margin: 20px 20px 10px;
+    font-size: 1.5em;
+    color: var(--heading-color);
+}
+
+.portfolio-item p {
+    margin: 0 20px 15px;
+    font-size: 0.95em;
+}
+
+.portfolio-item .btn {
+    margin: 0 20px;
+    display: block; /* Para que ocupe todo el ancho */
+    text-align: center;
+    padding: 10px 15px;
+}
+
+.portfolio-item .project-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: 2px solid var(--primary-color);
+}
+
+.portfolio-item .project-btn:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto 50px;
+    background-color: var(--secondary-color);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--heading-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: var(--font-family-body);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #5a51d6; /* Un tono más oscuro del primario */
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.1em;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.social-links-footer {
+    margin-top: 20px;
+}
+
+.social-links-footer a {
+    color: var(--text-color);
+    margin: 0 10px;
+    font-size: 2em;
+    transition: color 0.3s ease;
+}
+
+.social-links-footer a:hover {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--heading-color); /* Color oscuro para el footer */
+    color: var(--white);
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.9em;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 992px) {
+    .hero-section .container,
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content,
+    .hero-image,
+    .about-image,
+    .about-text {
+        margin: 0;
+        width: 100%;
+    }
+
+    .hero-image {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.8em;
+    }
+
+    h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+    .header .container {
+        flex-wrap: wrap;
+    }
+
+    .navbar {
+        display: none; /* Oculta el menú de navegación por defecto */
+        width: 100%;
+        order: 3; /* Para que aparezca debajo del logo y el botón de menú */
+        margin-top: 20px;
+        background-color: var(--white); /* Para un fondo claro del menú desplegable */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 5px;
+    }
+
+    .navbar.active {
+        display: block; /* Muestra el menú cuando esté activo */
+    }
+
+    .navbar .nav-list {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .navbar .nav-list li {
+        margin: 0;
+    }
+
+    .navbar .nav-link {
+        display: block;
+        padding: 10px 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .navbar .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    .menu-toggle {
+        display: flex; /* Muestra el menú hamburguesa */
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .secondary-btn {
+        margin-left: 0;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+    }
+
+    .submit-btn {
+        padding: 12px;
+        font-size: 1em;
+    }
+
+    .header, .hero-section, .about-section, .portfolio-section, .contact-section, .footer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
