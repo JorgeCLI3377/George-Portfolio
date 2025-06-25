@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     // Actualizar el año en el footer
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) {
@@ -30,12 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section');
     const navLi = document.querySelectorAll('.nav-list li');
 
-    window.addEventListener('scroll', () => {
+    const highlightNav = () => {
         let current = '';
+        const scrollY = window.pageYOffset;
+
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
+            const sectionTop = section.offsetTop - 150; // Ajusta este valor según tu diseño (altura del header + algo extra)
             const sectionHeight = section.clientHeight;
-            if (pageYOffset >= (sectionTop - 100)) { // Ajusta el offset si es necesario
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 current = section.getAttribute('id');
             }
         });
@@ -46,7 +47,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 li.classList.add('active');
             }
         });
-    });
+    };
+
+    window.addEventListener('scroll', highlightNav);
+    highlightNav(); // Llama al inicio para establecer la sección activa si ya se cargó la página con scroll
 
     // Opcional: Suavizar el scroll para enlaces internos (aunque scroll-behavior: smooth ya ayuda)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -58,19 +62,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-
-    // Opcional: Manejo básico del formulario de contacto (sin backend)
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevenir el envío por defecto
-
-            // Aquí podrías añadir lógica para enviar los datos a un servicio de formularios
-            // como Formspree, Netlify Forms, o un backend propio.
-            // Por ahora, solo mostraremos un mensaje de éxito.
-
-            alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.');
-            contactForm.reset(); // Limpiar el formulario
-        });
-    }
 });

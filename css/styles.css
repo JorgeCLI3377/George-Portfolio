@@ -1,11 +1,13 @@
 /* Variables CSS para colores y fuentes */
 :root {
-    --primary-color: #6C63FF; /* Ejemplo de color primario (azul/morado) */
-    --secondary-color: #F0F0F0; /* Fondo claro */
-    --text-color: #333;
-    --heading-color: #1a1a1a;
-    --white: #fff;
-    --font-family-headings: 'Montserrat', sans-serif; /* Puedes elegir tus propias fuentes */
+    --primary-color: #6C63FF; /* Azul/Morado vibrante */
+    --secondary-color: #f8f9fa; /* Fondo claro */
+    --dark-blue: #2c3e50; /* Azul oscuro para texto y encabezados */
+    --text-color: #4a4a4a; /* Gris oscuro para texto general */
+    --white: #ffffff;
+    --light-grey: #e9ecef; /* Gris muy claro para bordes o separadores */
+    
+    --font-family-headings: 'Montserrat', sans-serif;
     --font-family-body: 'Open Sans', sans-serif;
 }
 
@@ -22,41 +24,64 @@ html {
 
 body {
     font-family: var(--font-family-body);
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-color);
     background-color: var(--white);
+    overflow-x: hidden; /* Evita el scroll horizontal */
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 25px; /* Aumenta el padding para un mejor respiro */
 }
 
 /* Tipografía */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-headings);
-    color: var(--heading-color);
-    margin-bottom: 15px;
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
 h1 {
-    font-size: 3.5em;
-    line-height: 1.2;
+    font-size: 3.8em;
+    line-height: 1.1;
 }
 
 h1 span {
     color: var(--primary-color);
 }
 
+.subtitle {
+    font-size: 1.25em;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
 h2 {
-    font-size: 2.5em;
+    font-size: 3em;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
 }
 
 p {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em;
 }
 
 a {
@@ -67,12 +92,14 @@ a {
 /* Botones */
 .btn {
     display: inline-block;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-weight: bold;
+    padding: 14px 30px;
+    border-radius: 50px; /* Bordes más redondeados para elegancia */
+    font-weight: 600;
     transition: all 0.3s ease;
     cursor: pointer;
     text-align: center;
+    font-size: 1.05em;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra sutil */
 }
 
 .primary-btn {
@@ -82,30 +109,35 @@ a {
 }
 
 .primary-btn:hover {
-    background-color: transparent;
-    color: var(--primary-color);
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 .secondary-btn {
     background-color: transparent;
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .secondary-btn:hover {
     background-color: var(--primary-color);
     color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* Header */
 .header {
     background-color: var(--white);
     padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
 }
 
 .header .container {
@@ -115,9 +147,11 @@ a {
 }
 
 .logo {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--heading-color);
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--dark-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .navbar .nav-list {
@@ -126,13 +160,32 @@ a {
 }
 
 .navbar .nav-list li {
-    margin-left: 30px;
+    margin-left: 35px;
 }
 
 .navbar .nav-link {
-    color: var(--text-color);
-    font-weight: 500;
+    color: var(--dark-blue);
+    font-weight: 600;
+    font-size: 1.05em;
+    padding: 5px 0;
+    position: relative;
     transition: color 0.3s ease;
+}
+
+.navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+    width: 100%;
 }
 
 .navbar .nav-link:hover,
@@ -140,19 +193,36 @@ a {
     color: var(--primary-color);
 }
 
-/* Menú hamburguesa para móvil (oculto por defecto en desktop) */
+/* Menú hamburguesa para móvil */
 .menu-toggle {
-    display: none; /* Oculto en desktop */
+    display: none;
     flex-direction: column;
     cursor: pointer;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    transition: all 0.3s ease;
 }
 
 .menu-toggle .bar {
-    width: 25px;
+    width: 100%;
     height: 3px;
-    background-color: var(--text-color);
-    margin: 4px 0;
+    background-color: var(--dark-blue);
+    border-radius: 2px;
     transition: all 0.3s ease;
+}
+
+/* Animación de hamburguesa a X */
+.menu-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.is-active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Hero Section */
@@ -160,23 +230,24 @@ a {
     display: flex;
     align-items: center;
     min-height: 90vh;
-    padding: 80px 0;
-    background-color: var(--secondary-color); /* Un color de fondo suave */
-    position: relative; /* Para los elementos gráficos */
-    overflow: hidden; /* Para que las formas no se salgan */
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--white) 100%); /* Gradiente suave */
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-section .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Para que se apilen en pantallas pequeñas */
+    flex-wrap: wrap;
 }
 
 .hero-content {
     flex: 1;
-    min-width: 300px;
-    margin-right: 40px;
+    min-width: 350px;
+    margin-right: 50px;
+    z-index: 2;
 }
 
 .hero-image {
@@ -186,246 +257,283 @@ a {
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 20px; /* Para asegurar espacio para las formas */
 }
 
 .hero-image img {
     max-width: 100%;
     height: auto;
-    border-radius: 15px; /* Bordes ligeramente redondeados */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    z-index: 2; /* Para que esté por encima de las formas */
+    border-radius: 20px; /* Bordes más redondeados */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+    z-index: 2;
+    transition: transform 0.4s ease;
 }
 
-/* Formas gráficas en Hero Section (ejemplo) */
-.graphic-shape-1 {
+.hero-image img:hover {
+    transform: scale(1.03);
+}
+
+/* Formas gráficas en Hero Section */
+.graphic-shape-1, .graphic-shape-2 {
     position: absolute;
-    width: 200px;
-    height: 200px;
     background-color: var(--primary-color);
-    opacity: 0.1;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    top: 10%;
-    left: 5%;
+    opacity: 0.08; /* Muy sutil */
+    filter: blur(10px); /* Desenfoque para un efecto suave */
     z-index: 1;
+}
+
+.graphic-shape-1 {
+    width: 220px;
+    height: 220px;
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%;
+    top: 5%;
+    left: 0%;
 }
 
 .graphic-shape-2 {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background-color: var(--primary-color);
-    opacity: 0.08;
-    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-    bottom: 15%;
-    right: 10%;
-    z-index: 1;
+    width: 180px;
+    height: 180px;
+    border-radius: 60% 40% 30% 70% / 60% 60% 40% 40%;
+    bottom: 0%;
+    right: 5%;
 }
 
+
 .hero-buttons {
-    margin-top: 30px;
+    margin-top: 40px;
     display: flex;
-    gap: 15px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .social-links {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .social-links a {
-    color: var(--text-color);
-    font-size: 1.8em;
-    margin-right: 15px;
-    transition: color 0.3s ease;
+    color: var(--dark-blue);
+    font-size: 2em;
+    margin-right: 25px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-links a:hover {
     color: var(--primary-color);
+    transform: translateY(-3px);
 }
 
 /* About Section */
 .about-section {
-    padding: 80px 0;
+    padding: 100px 0;
     background-color: var(--white);
 }
 
 .about-content {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 60px;
     flex-wrap: wrap;
 }
 
 .about-image {
     flex: 1;
-    min-width: 250px;
+    min-width: 300px;
     text-align: center;
+    position: relative;
 }
 
 .about-image img {
     max-width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
 }
 
 .about-text {
     flex: 2;
     min-width: 300px;
+    font-size: 1.05em;
+}
+
+.about-text .btn {
+    margin-top: 20px;
 }
 
 /* Portfolio Section */
 .portfolio-section {
-    padding: 80px 0;
+    padding: 100px 0;
     background-color: var(--secondary-color);
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
 }
 
 .portfolio-item {
     background-color: var(--white);
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    padding-bottom: 20px; /* Espacio para el botón */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .portfolio-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
 }
 
 .portfolio-item img {
     width: 100%;
-    height: 200px; /* Altura fija para las miniaturas */
-    object-fit: cover; /* Para que la imagen cubra el espacio sin distorsionarse */
+    height: 220px; /* Altura fija para las miniaturas */
+    object-fit: cover;
     display: block;
+    border-bottom: 1px solid var(--light-grey);
+}
+
+.portfolio-item .item-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .portfolio-item h3 {
-    margin: 20px 20px 10px;
-    font-size: 1.5em;
-    color: var(--heading-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.6em;
+    color: var(--dark-blue);
 }
 
 .portfolio-item p {
-    margin: 0 20px 15px;
-    font-size: 0.95em;
-}
-
-.portfolio-item .btn {
-    margin: 0 20px;
-    display: block; /* Para que ocupe todo el ancho */
-    text-align: center;
-    padding: 10px 15px;
+    margin-bottom: 20px;
+    font-size: 0.98em;
+    flex-grow: 1; /* Permite que el párrafo ocupe el espacio disponible */
 }
 
 .portfolio-item .project-btn {
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: 2px solid var(--primary-color);
+    margin-top: auto; /* Empuja el botón hacia abajo */
+    width: fit-content; /* Ajusta el ancho del botón a su contenido */
+    align-self: flex-start; /* Alinea el botón a la izquierda dentro de la columna */
+    padding: 10px 20px;
+    font-size: 0.9em;
+    border-radius: 5px; /* Botones de proyecto con bordes menos redondeados */
+    box-shadow: none; /* Sin sombra extra en los botones internos */
 }
 
-.portfolio-item .project-btn:hover {
-    background-color: transparent;
-    color: var(--primary-color);
+.portfolio-item .project-btn i {
+    margin-left: 8px;
 }
-
 
 /* Contact Section */
 .contact-section {
-    padding: 80px 0;
+    padding: 100px 0;
     background-color: var(--white);
-}
-
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto 50px;
-    background-color: var(--secondary-color);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--heading-color);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-    font-family: var(--font-family-body);
-}
-
-.form-group textarea {
-    resize: vertical;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 15px;
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    font-size: 1.1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-    background-color: #5a51d6; /* Un tono más oscuro del primario */
-}
-
-.contact-info {
     text-align: center;
-    margin-top: 30px;
-    font-size: 1.1em;
 }
 
-.contact-info p {
-    margin-bottom: 10px;
-}
-
-.social-links-footer {
-    margin-top: 20px;
-}
-
-.social-links-footer a {
+.contact-intro {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    font-size: 1.15em;
+    line-height: 1.6;
     color: var(--text-color);
-    margin: 0 10px;
-    font-size: 2em;
-    transition: color 0.3s ease;
 }
 
-.social-links-footer a:hover {
+.contact-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.whatsapp-btn {
+    background-color: #25d366; /* Color de WhatsApp */
+    color: var(--white);
+    border: 2px solid #25d366;
+    font-size: 1.2em;
+    padding: 16px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 380px;
+    width: 100%;
+}
+
+.whatsapp-btn:hover {
+    background-color: #1DA851; /* Tono más oscuro de verde */
+    border-color: #1DA851;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(37,211,102,0.4);
+}
+
+.whatsapp-btn i {
+    font-size: 1.5em;
+}
+
+.contact-info-direct {
+    font-size: 1.1em;
+    color: var(--dark-blue);
+}
+
+.contact-info-direct p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact-info-direct i {
     color: var(--primary-color);
+    font-size: 1.2em;
+}
+
+.social-links-contact {
+    margin-top: 40px;
+    border-top: 1px solid var(--light-grey);
+    padding-top: 40px;
+}
+
+.social-links-contact a {
+    color: var(--dark-blue);
+    margin: 0 15px;
+    font-size: 2.2em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links-contact a:hover {
+    color: var(--primary-color);
+    transform: translateY(-5px);
 }
 
 /* Footer */
 .footer {
-    background-color: var(--heading-color); /* Color oscuro para el footer */
+    background-color: var(--dark-blue);
     color: var(--white);
     text-align: center;
     padding: 30px 0;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
 /* Media Queries para Responsividad */
 @media (max-width: 992px) {
+    h1 {
+        font-size: 3em;
+    }
+    h2 {
+        font-size: 2.5em;
+    }
+
     .hero-section .container,
     .about-content {
         flex-direction: column;
@@ -441,41 +549,59 @@ a {
     }
 
     .hero-image {
-        margin-top: 40px;
+        margin-top: 60px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .secondary-btn {
+        margin-left: 0; /* Elimina el margen lateral cuando se apilan */
+    }
+
+    .social-links {
+        justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.8em;
+        font-size: 2.5em;
     }
 
     h2 {
-        font-size: 2em;
-        margin-bottom: 30px;
+        font-size: 2.2em;
+        margin-bottom: 50px;
     }
 
     .header .container {
         flex-wrap: wrap;
+        padding-right: 25px; /* Mantén el padding para el botón de hamburguesa */
+    }
+
+    .logo {
+        flex-grow: 1; /* Permite que el logo ocupe el espacio */
+        text-align: left;
     }
 
     .navbar {
-        display: none; /* Oculta el menú de navegación por defecto */
+        display: none;
         width: 100%;
-        order: 3; /* Para que aparezca debajo del logo y el botón de menú */
+        order: 3;
         margin-top: 20px;
-        background-color: var(--white); /* Para un fondo claro del menú desplegable */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        border-radius: 5px;
+        background-color: var(--white);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        padding: 10px 0;
     }
 
     .navbar.active {
-        display: block; /* Muestra el menú cuando esté activo */
+        display: block;
     }
 
     .navbar .nav-list {
         flex-direction: column;
-        padding: 10px 0;
     }
 
     .navbar .nav-list li {
@@ -484,8 +610,9 @@ a {
 
     .navbar .nav-link {
         display: block;
-        padding: 10px 20px;
-        border-bottom: 1px solid #eee;
+        padding: 12px 25px;
+        border-bottom: 1px solid var(--light-grey);
+        text-align: left;
     }
 
     .navbar .nav-link:last-child {
@@ -493,49 +620,73 @@ a {
     }
 
     .menu-toggle {
-        display: flex; /* Muestra el menú hamburguesa */
+        display: flex;
     }
 
     .hero-buttons {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
     }
 
-    .secondary-btn {
-        margin-left: 0;
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
     }
 
     .portfolio-grid {
-        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        grid-template-columns: 1fr;
+    }
+
+    .whatsapp-btn {
+        font-size: 1.1em;
+        padding: 14px 25px;
+    }
+    .contact-info-direct p {
+        flex-direction: column; /* Apila ícono y texto */
+        gap: 5px;
     }
 }
 
 @media (max-width: 480px) {
     h1 {
-        font-size: 2.2em;
+        font-size: 2em;
     }
-
+    .subtitle {
+        font-size: 1.1em;
+    }
     h2 {
         font-size: 1.8em;
+        margin-bottom: 40px;
     }
-
+    .container {
+        padding: 0 15px;
+    }
     .btn {
         padding: 10px 20px;
         font-size: 0.9em;
     }
-
-    .form-group input,
-    .form-group textarea {
-        padding: 10px;
+    .social-links a {
+        font-size: 1.6em;
+        margin-right: 15px;
     }
-
-    .submit-btn {
-        padding: 12px;
+    .portfolio-item .item-content {
+        padding: 20px;
+    }
+    .portfolio-item h3 {
+        font-size: 1.4em;
+    }
+    .whatsapp-btn {
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+    .whatsapp-btn i {
+        font-size: 1.2em;
+    }
+    .contact-info-direct {
         font-size: 1em;
     }
-
-    .header, .hero-section, .about-section, .portfolio-section, .contact-section, .footer {
-        padding-left: 15px;
-        padding-right: 15px;
+    .social-links-contact a {
+        font-size: 1.8em;
+        margin: 0 10px;
     }
 }
