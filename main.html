@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Desarrollador Web & Móvil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style id="app-style">
+        :root {
+            --primary: #00f7ff;
+            --secondary: #ff00e6;
+            --accent: #8a2be2;
+            --dark: #0a0a14;
+            --light: #e6f1ff;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        /* Glow effects */
+        .glow {
+            box-shadow: 0 0 15px 2px var(--primary);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .glow-border {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 10px 1px var(--primary), inset 0 0 10px 1px var(--primary);
+        }
+
+        /* Futuristic components */
+        .cyber-button {
+            position: relative;
+            padding: 12px 24px;
+            background: rgba(0, 247, 255, 0.1);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--primary);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .cyber-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .cyber-button:hover {
+            color: var(--dark);
+        }
+
+        .cyber-button:hover:before {
+            width: 100%;
+        }
+
+        .cyber-border {
+            position: relative;
+            border: 1px solid var(--primary);
+            padding: 1px;
+        }
+
+        .cyber-border:before, .cyber-border:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--primary);
+            z-index: 1;
+        }
+
+        .cyber-border:before {
+            top: -8px;
+            left: -8px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .cyber-border:after {
+            bottom: -8px;
+            right: -8px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* 3D Skills Bar */
+        .skill-container {
+            position: relative;
+            height: 24px;
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            margin-bottom: 24px;
+            perspective: 1000px;
+        }
+
+        .skill-fill {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
+            transition: all 0.6s ease;
+        }
+
+        .skill-container:hover .skill-fill {
+            transform: translateZ(10px);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        /* Project Card */
+        .project-card {
+            background: rgba(20, 20, 40, 0.8);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            height: 100%;
+        }
+
+        .project-image {
+            height: 200px;
+            background-position: center;
+            background-size: cover;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content {
+            width: 80%;
+            max-width: 800px;
+            background-color: rgba(20, 20, 40, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .modal-active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* ChatBot */
+        .chat-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform-origin: bottom right;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .chat-active {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .chat-header {
+            padding: 16px;
+            background: var(--accent);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid var(--accent);
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: rgba(0, 247, 255, 0.2);
+            border: 1px solid var(--primary);
+        }
+
+        .chat-form {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid rgba(138, 43, 226, 0.4);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--accent);
+            background: rgba(20, 20, 40, 0.8);
+            color: white;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .send-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .chat-form-register {
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .chat-form-register input {
+            margin-bottom: 12px;
+            padding: 10px;
+            border: 1px solid var(--accent);
+            background: rgba(20, 20, 40, 0.8);
+            color: white;
+            border-radius: 4px;
+        }
+
+        .chat-form-register button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 12px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 10, 20, 0.8);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        /* Animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(10, 10, 20, 0.95);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--light);
+            margin: 0 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: all 0.6s ease;
+        }
+
+        .loading.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(0, 247, 255, 0.1);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Reference Image Styling */
+         .reference-image {
+        width: 350px; /* Increased size, adjust as needed */
+        height: 300px; /* Increased size, adjust as needed */
+        border-radius: 0;
+        object-fit: cover;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        border: 2px solid var(--primary);
+        box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+
+        /* Hobbies Section */
+        .hobby-card {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        /* Reference Card Hover Effect */
+        .reference-card {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .reference-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .hobby-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Social Media Icons Hover Effect */
+        .social-icon:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100%;
+                background: rgba(10, 10, 20, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 80px 1rem 1rem;
+                z-index: 99;
+                transition: right 0.3s ease;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .mobile-menu.open {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                z-index: 100;
+            }
+
+            .nav-link {
+                margin: 1rem 0;
+                font-size: 1.2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="vanta-bg" class="animated-bg"></div>
+
+    <nav class="navbar">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold">
+                <span class="text-white">Web</span><span class="text-primary glow-text">Develop</span>
+            </div>
+            <div class="hidden md:flex">
+                <a href="#home" class="nav-link">Inicio</a>
+                <a href="#about" class="nav-link">Acerca de mí</a>
+                <a href="#skills" class="nav-link">Habilidades</a>
+                <a href="#hobbies" class="nav-link">Pasatiempos</a>
+                <a href="#references" class="nav-link">Proyectos</a>
+                <a href="#contact" class="nav-link">Contacto</a>
+            </div>
+            <button class="menu-toggle md:hidden">
+                <i class="fas fa-bars text-white text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="#home" class="nav-link">Inicio</a>
+        <a href="#about" class="nav-link">Acerca de mí</a>
+        <a href="#skills" class="nav-link">Habilidades</a>
+        <a href="#hobbies" class="nav-link">Pasatiempos</a>
+        <a href="#references" class="nav-link">Proyectos</a>
+        <a href="#contact" class="nav-link">Contacto</a>
+    </div>
+
+    <section id="home" class="hero-container">
+        <div class="container mx-auto px-4">
+            <div class="hero-content text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4" id="hero-title">
+                    <span class="glow-text">Jorge Andres Meneses Peñaranda, Desarrollador</span> Web & Móvil
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-80">Creando experiencias digitales innovadoras y futuristas</p>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <a href="#skills" class="cyber-button">Ver Habilidades</a>
+                    <a href="#contact" class="cyber-button">Contactame</a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-primary text-2xl"></i>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                Acerca de <span class="text-primary glow-text">Mí</span>
+            </h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="w-full md:w-1/3">
+                    <div class="cyber-border">
+                        <img src="jorgeimg-removebg-preview.png" alt="Profile" class="w-full">
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4">Desarrollador Web & Móvil</h3>
+                    <p class="mb-6">
+                        Soy un apasionado desarrollador especializado en crear experiencias digitales excepcionales. Con más de 3 años de experiencia, he trabajado en diversos proyectos que abarcan desde aplicaciones web empresariales hasta soluciones móviles innovadoras.
+                    </p>
+                    <p class="mb-8">
+                        Mi objetivo es combinar la funcionalidad con un diseño atractivo, creando productos que no solo cumplen con los requisitos técnicos sino que también proporcionan una experiencia de usuario sobresaliente. Me mantengo constantemente actualizado con las últimas tecnologías y tendencias del sector.
+                    </p>
+                    <button id="cv-button" class="cyber-button">
+                        <i class="fas fa-file-alt mr-2"></i> Ver mi CV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                Mis <span class="text-primary glow-text">Habilidades</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl mb-6 font-semibold">Desarrollo Frontend web & mobile</h3>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>tailwindcss</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>JavaScript</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>React</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>XML</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl mb-6 font-semibold">Cloud</h3>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Aws</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Google Cloud</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>JavaScript</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>React</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>XML</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div>
+                    <h3 class="text-2xl mb-6 font-semibold">Desarrollo Backend & Móvil</h3>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Node.js</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Java, springboot</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Python</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Flask</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>MongoDB</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>PostgreSQL</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>MySQL</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span>Firebase</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-container">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hobbies" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                Intereses y <span class="text-primary glow-text">Pasatiempos</span>
+            </h2>
+            <h3 class="text-2xl font-semibold mb-8 text-center">Mi Estilo de Vida Digital</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Proyectos Personales</h3>
+                    <p class="text-gray-300">
+                        Desarrollo herramientas y contribuyo a proyectos open source que resuelven problemas cotidianos. Actualmente trabajando en una extensión de navegador para mejorar la productividad.
+                    </p>
+                </div>
+                
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Aprendizaje Continuo</h3>
+                    <p class="text-gray-300">
+                        Apasionado por la lectura técnica y cursos en plataformas como Platzi y Udemy. Mis libros favoritos: "Clean Code" y "The Pragmatic Programmer".
+                    </p>
+                </div>
+                
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Comunidad Tech</h3>
+                    <p class="text-gray-300">
+                        Participo activamente en meetups y conferencias como DevFest y JSConf. Miembro de comunidades online como freeCodeCamp y Stack Overflow.
+                    </p>
+                </div>
+                
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Habilidades Creativas</h3>
+                    <p class="text-gray-300">
+                        Además de programar, tengo habilidades en diseño gráfico y edición de video. Disfruto creando contenido visual para mis proyectos personales.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-lg">
+                    "Creo que la combinación de habilidades técnicas y creativas me permite abordar problemas desde perspectivas únicas y desarrollar soluciones más completas."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="references" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                Mis <span class="text-primary glow-text">Proyectos</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="reference-card">
+                    <h3 class="text-2xl font-semibold text-primary mb-2">ContratoAuto</h3>
+                    <img src="img/contratoauto.png" alt="Juan Perez" class="reference-image">
+                    <p class="text-lg mb-2">Tecnologias usadas: HTML, CSS, JAVASCRIPT, PYTHON CON FLASK Y SUPABASE</p>
+                    <p class="text-gray-300">"Este proyecto esta enfocado en la automatizacion de contratos por medio de un formulario."</p>
+                </div>
+                <div class="reference-card">
+                    <h3 class="text-2xl font-semibold text-primary mb-2">Community Team</h3>
+                    <img src="img/community.png" alt="Maria Garcia" class="reference-image">
+                    <p class="text-lg mb-2">Tecnologias usadas: HTML, CSS y javascript</p>
+                    <p class="text-gray-300">"Este proyecto es una web un equipo de programadores ofrecen sus servicios como startup y tambien se muestran proyectos importantes que hemos hecho"</p>
+                </div>
+                <div class="reference-card">
+                    <h3 class="text-2xl font-semibold text-primary mb-2">Anarchy Social APP</h3>
+                    <img src="img/SocialApp.jpeg" alt="Carlos Rodriguez" class="reference-image">
+                    <p class="text-lg mb-2">Tecnologias: Java, XML, Androidstudio, base de datos con firebase</p>
+                    <p class="text-gray-300">"La habilidad de Jorge para entender los requisitos y traducirlos en código eficiente es notable. Siempre dispuesto a aprender y a contribuir, es un excelente miembro de cualquier equipo."</p>
+                </div>
+                <div class="reference-card">
+                    <h3 class="text-2xl font-semibold text-primary mb-2">LandingCraft</h3>
+                    <img src="img/Landingcraft.png" alt="Carlos Rodriguez" class="reference-image">
+                    <p class="text-lg mb-2">Tecnologias: HTML, CSS, JAVASCRIPT, Supabase</p>
+                    <p class="text-gray-300">"Este es un generador de landing pages en el cual solamente es arrastrar y soltar pensado para aquellas personas que no pueden pagar un programador, ellos mismos pueden hacerlo es muy facil arrastra y suelta"</p>
+                </div>
+                <div class="reference-card">
+                    <h3 class="text-2xl font-semibold text-primary mb-2">Simple Landing Page Fundacion</h3>
+                    <img src="img/cn.png" alt="Carlos Rodriguez" class="reference-image">
+                    <p class="text-lg mb-2">Tecnologias: HTML, CSS, JAVASCRIPT</p>
+                    <p class="text-gray-300">"Esta es una web desarrollada para un cliente el cual es una fundacion"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section bg-[#0d0d1a]">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-12">
+                <span class="text-primary glow-text">Contacto</span>
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                ¿Interesado en trabajar juntos? ¡Contáctame para discutir sobre tu proyecto!
+            </p>
+            <a href="https://wa.me/+573045517255" target="_blank" class="cyber-button inline-flex items-center">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> Contactar vía WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-8 bg-[#08080f]">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-lg font-bold mb-4 md:mb-0">
+                    <span class="text-white">Dev</span><span class="text-primary">Portfolio</span> | <span class="text-sm opacity-70">© 2025 Todos los derechos reservados</span>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://github.com/777undefined777" class="text-white hover:text-primary transition-colors social-icon">
+                        <i class="fab fa-github text-xl">1</i>
+                    </a>
+                    <a href="https://github.com/JorgeCLI3377" class="text-white hover:text-primary transition-colors social-icon">
+                        <i class="fab fa-github text-xl">2</i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/jorge-andres-meneses-pe%C3%B1aranda-b8102a308/" class="text-white hover:text-primary transition-colors social-icon">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="text-white hover:text-primary transition-colors social-icon">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cv-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 class="text-2xl font-bold mb-4">Mi Currículum</h3>
+            <div class="cv-preview" style="height: 70vh;">
+                <iframe src="CV-JORGE-MENESES-PEÑARANDA-2025.pdf" width="100%" height="100%" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-widget">
+        <div class="chat-button">
+            <i class="fas fa-comments text-2xl text-white"></i>
+        </div>
+        <div id="chat-container" class="chat-container">
+            <div id="chat-initial" class="chat-form-register">
+                <h3 class="text-xl font-bold mb-4 text-center">Bienvenido al asistente</h3>
+                <p class="mb-4">Por favor, introduce tus datos para comenzar:</p>
+                <input type="text" id="visitor-name" placeholder="Tu nombre" required>
+                <input type="email" id="visitor-email" placeholder="Tu email" required>
+                <button id="start-chat">Iniciar chat</button>
+            </div>
+
+            <div id="chat-session" class="hidden h-full flex flex-col">
+                <div class="chat-header">
+                    <span>Asistente</span>
+                    <i class="fas fa-times close-chat"></i>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        Hola 👋, soy el asistente virtual de Jorge Meneses. Puedes preguntarme sobre su experiencia, habilidades, proyectos y más.
+                    </div>
+                </div>
+                <div class="chat-form">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Escribe un mensaje...">
+                    <button class="send-button" id="send-message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="app-script">
+        // Loading animation
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('loaded');
+            }, 1500);
+
+            // Initialize all effects after page is loaded
+            initializeEffects();
+        });
+
+        function initializeEffects() {
+            // Initialize VANTA.NET background
+            if (typeof VANTA !== 'undefined') {
+                VANTA.NET({
+                    el: "#vanta-bg",
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 1.00,
+                    color: 0x00f7ff,
+                    backgroundColor: 0x0a0a14,
+                    points: 10.00,
+                    maxDistance: 25.00,
+                    spacing: 16.00
+                });
+            }
+
+            // Initialize VanillaTilt if available
+            if (typeof VanillaTilt !== 'undefined') {
+                VanillaTilt.init(document.querySelectorAll(".project-card, .reference-card"), {
+                    max: 10,
+                    speed: 400,
+                    glare: true,
+                    "max-glare": 0.3,
+                });
+            }
+
+            // Initialize TypeIt if available
+            if (typeof TypeIt !== 'undefined') {
+                new TypeIt("#hero-title", {
+                    strings: ["Desarrollador Web & Móvil", "Frontend Developer", "Mobile App Creator"],
+                    speed: 75,
+                    loop: true,
+                    waitUntilVisible: true,
+                }).go();
+            }
+
+            // Initialize GSAP ScrollTrigger if available
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.from(".hero-content", {
+                    opacity: 0,
+                    y: 100,
+                    duration: 1,
+                });
+
+                gsap.utils.toArray(".section").forEach(section => {
+                    gsap.from(section.querySelectorAll("h2, h3, p, .skill-container"), {
+                        opacity: 0,
+                        y: 50,
+                        stagger: 0.2,
+                        duration: 0.8,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 80%",
+                            end: "bottom 20%",
+                        }
+                    });
+                });
+            }
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    document.querySelector('.mobile-menu').classList.toggle('open');
+                });
+            }
+
+            document.querySelectorAll('.mobile-menu .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.querySelector('.mobile-menu').classList.remove('open');
+                });
+            });
+
+            // Modal functionality
+            const cvButton = document.getElementById('cv-button');
+            const cvModal = document.getElementById('cv-modal');
+            const closeModal = document.querySelector('.close-modal');
+
+            if (cvButton) {
+                cvButton.addEventListener('click', function() {
+                    cvModal.classList.add('modal-active');
+                });
+            }
+
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    cvModal.classList.remove('modal-active');
+                });
+            }
+
+            window.addEventListener('click', function(event) {
+                if (event.target === cvModal) {
+                    cvModal.classList.remove('modal-active');
+                }
+            });
+
+            // Chatbot functionality
+            const chatButton = document.querySelector('.chat-button');
+            const chatContainer = document.getElementById('chat-container');
+            const chatInitial = document.getElementById('chat-initial');
+            const chatSession = document.getElementById('chat-session');
+            const startChatBtn = document.getElementById('start-chat');
+            const closeChat = document.querySelector('.close-chat');
+            const chatInput = document.getElementById('chat-input');
+            const sendMessage = document.getElementById('send-message');
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Check if visitor data is already stored
+            const checkVisitorData = () => {
+                const visitorData = localStorage.getItem('visitorData');
+                if (visitorData) {
+                    chatInitial.classList.add('hidden');
+                    chatSession.classList.remove('hidden');
+                }
+            };
+
+            // Toggle chat widget
+            if (chatButton) {
+                chatButton.addEventListener('click', function() {
+                    chatContainer.classList.toggle('chat-active');
+                    checkVisitorData();
+                });
+            }
+
+            // Close chat
+            if (closeChat) {
+                closeChat.addEventListener('click', function() {
+                    chatContainer.classList.remove('chat-active');
+                });
+            }
+
+            // Start chat session
+            if (startChatBtn) {
+                startChatBtn.addEventListener('click', function() {
+                    const visitorName = document.getElementById('visitor-name').value;
+                    const visitorEmail = document.getElementById('visitor-email').value;
+
+                    if (!visitorName || !visitorEmail) {
+                        alert('Por favor completa todos los campos');
+                        return;
+                    }
+
+                    // Store visitor data in localStorage
+                    const visitorData = { name: visitorName, email: visitorEmail };
+                    localStorage.setItem('visitorData', JSON.stringify(visitorData));
+
+                    chatInitial.classList.add('hidden');
+                    chatSession.classList.remove('hidden');
+
+                    // Add personalized welcome message
+                    const welcomeMsg = document.createElement('div');
+                    welcomeMsg.classList.add('message', 'bot-message');
+                    welcomeMsg.textContent = `Hola ${visitorName}! ¿En qué puedo ayudarte hoy?`;
+                    chatMessages.appendChild(welcomeMsg);
+
+                    // Scroll to bottom of chat
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                });
+            }
+
+            // Send message function
+            const handleSendMessage = () => {
+                const message = chatInput.value.trim();
+                if (!message) return;
+
+                // Add user message to chat
+                const userMsg = document.createElement('div');
+                userMsg.classList.add('message', 'user-message');
+                userMsg.textContent = message;
+                chatMessages.appendChild(userMsg);
+
+                chatInput.value = '';
+
+                // Simulate "typing" indicator
+                const typingIndicator = document.createElement('div');
+                typingIndicator.classList.add('message', 'bot-message');
+                typingIndicator.innerHTML = '<i>Escribiendo...</i>';
+                chatMessages.appendChild(typingIndicator);
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Simulate bot response after a short delay
+                setTimeout(() => {
+                    chatMessages.removeChild(typingIndicator);
+
+                    let botReply = '';
+                    const msgLower = message.toLowerCase();
+
+                    // Enhanced pattern matching for responses
+                    if (msgLower.includes('hola') || msgLower.includes('hi') || msgLower.includes('hello')) {
+                        botReply = "¡Hola! ¿Cómo puedo ayudarte hoy? Puedes preguntarme sobre la experiencia de Jorge, sus habilidades, proyectos, o incluso sobre sus pasatiempos.";
+                    } else if (msgLower.includes('habilidad') || msgLower.includes('skill') || msgLower.includes('tecnologia') || msgLower.includes('tech')) {
+                        botReply = "Las principales habilidades de Jorge incluyen: Desarrollo Frontend (HTML, CSS, JavaScript, React, Vue.js), Desarrollo Backend (Node.js, Python), y Desarrollo Móvil (Flutter). También tiene experiencia con bases de datos como MongoDB. ¿Te gustaría saber más sobre alguna en particular?";
+                    } else if (msgLower.includes('experiencia') || msgLower.includes('años') || msgLower.includes('trayectoria')) {
+                        botReply = "Jorge cuenta con más de 5 años de experiencia en el desarrollo web y móvil, trabajando en proyectos que van desde aplicaciones empresariales hasta soluciones móviles innovadoras.";
+                    } else if (msgLower.includes('proyecto') || msgLower.includes('trabajo') || msgLower.includes('portafolio')) {
+                        botReply = "Jorge ha trabajado en diversos proyectos, abarcando aplicaciones web empresariales y soluciones móviles. Puedes ver algunos ejemplos en la sección de 'Proyectos' (aunque no está visible en el HTML proporcionado, le diría al usuario que revise esa sección si existiera). Actualmente, se enfoca en combinar funcionalidad con diseño atractivo.";
+                    } else if (msgLower.includes('contacto') || msgLower.includes('contactame') || msgLower.includes('hablar')) {
+                        botReply = "Claro, puedes contactar a Jorge directamente a través de WhatsApp haciendo clic en el botón 'Contactar vía WhatsApp' en la sección de Contacto. ¡Él estará encantado de discutir tu proyecto!";
+                    } else if (msgLower.includes('referencias') || msgLower.includes('opinion')) {
+                        botReply = "Sí, Jorge tiene varias referencias destacadas de profesionales con los que ha trabajado. Puedes revisar los testimonios de Juan Perez (CTO), Maria Garcia (Project Manager), y Carlos Rodriguez (Senior Developer) en la sección de Referencias de su portafolio.";
+                    } else if (msgLower.includes('cv') || msgLower.includes('currículum') || msgLower.includes('hoja de vida')) {
+                        botReply = "Puedes ver el currículum de Jorge haciendo clic en el botón 'Ver mi CV' en la sección 'Acerca de Mí'. Allí encontrarás un detalle completo de su formación y experiencia.";
+                    } else if (msgLower.includes('pasatiempos') || msgLower.includes('hobbies') || msgLower.includes('intereses')) {
+                        botReply = "Los pasatiempos e intereses de Jorge incluyen el desarrollo de proyectos personales (especialmente extensiones de navegador), el aprendizaje continuo a través de lectura técnica y cursos, la participación activa en la comunidad tech (meetups, conferencias), y el desarrollo de habilidades creativas como diseño gráfico y edición de video. ¡Su estilo de vida es muy digital!";
+                    } else if (msgLower.includes('gracias') || msgLower.includes('agradezco')) {
+                        botReply = "De nada. Si tienes alguna otra pregunta, no dudes en consultarme.";
+                    } else if (msgLower.includes('adiós') || msgLower.includes('chao') || msgLower.includes('bye')) {
+                        botReply = "¡Hasta luego! Que tengas un excelente día.";
+                    } else {
+                        botReply = "Lo siento, no estoy seguro de cómo responder a eso. ¿Podrías reformular tu pregunta o preguntar sobre la experiencia, habilidades, proyectos o referencias de Jorge?";
+                    }
+
+                    const botMsg = document.createElement('div');
+                    botMsg.classList.add('message', 'bot-message');
+                    botMsg.textContent = botReply;
+                    chatMessages.appendChild(botMsg);
+
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            };
+
+            // Send message on button click
+            if (sendMessage) {
+                sendMessage.addEventListener('click', handleSendMessage);
+            }
+
+            // Send message on Enter key
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSendMessage();
+                    }
+                });
+            }
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
